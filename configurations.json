@@ -1,0 +1,34 @@
+[
+    {
+        "type": "command",
+        "command": "echo Hello World!"
+    },
+    {
+        "type": "alias",
+        "alias": "l",
+        "alias_command": "ls -lah"
+    },
+    {
+        "type": "alias",
+        "alias": "..",
+        "alias_command": "cd .."
+    },
+    {
+        "type": "alias",
+        "alias": "c",
+        "alias_command": "cd"
+    },
+    {
+        "type": "command",
+        "command": "curl -fsSL https://tailscale.com/install.sh | sh"
+    },
+    {
+        "type": "command",
+        "command": "python3 -m venv /home/s/venv"
+    },
+    {
+        "type": "append",
+        "line": "source ~/venv/bin/activate",
+        "destination": "rc"
+    }
+]

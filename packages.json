@@ -1,0 +1,88 @@
+[
+    {
+        "name": "gcc",
+        "manager": "apt",
+        "package": "gcc"
+    },
+    {
+        "name": "make",
+        "manager": "apt",
+        "package": "make"
+    },
+    {
+        "name": "lightdm",
+        "manager": "apt",
+        "package": "lightdm"
+    },
+    {
+        "name": "yt-dlp",
+        "manager": "apt",
+        "package": "yt-dlp"
+    },
+    {
+        "name": "docker runtime",
+        "manager": "apt",
+        "package": "docker.io"
+    },
+    {
+        "name": "docker compose",
+        "manager": "apt",
+        "package": "docker-compose"
+    },
+    {
+        "name": "python3",
+        "manager": "apt",
+        "package": "python3"
+    },
+    {
+        "name": "pip3",
+        "manager": "apt",
+        "package": "python3-pip"
+    },
+    {
+        "name": "venv",
+        "manager": "apt",
+        "package": "python3.8-venv"
+    },
+    {
+        "name": "neofetch",
+        "manager": "apt",
+        "package": "neofetch"
+    },
+    {
+        "name": "curl",
+        "manager": "apt",
+        "package": "curl"
+    },
+    {
+        "name": "vscode",
+        "manager": "snap",
+        "package": "code",
+        "extra": "--classic"
+    },
+    {
+        "name": "brave",
+        "manager": "snap",
+        "package": "brave"
+    },
+    {
+        "name": "spotify",
+        "manager": "snap",
+        "package": "spotify"
+    },
+    {
+        "name": "discord",
+        "manager": "snap",
+        "package": "discord"
+    },
+    {
+        "name": "bitwarden",
+        "manager": "snap",
+        "package": "bitwarden"
+    },
+    {
+        "name": "todoist",
+        "manager": "snap",
+        "package": "todoist"
+    }
+]

@@ -1,0 +1,12 @@
+[
+    {
+        "name": "A100",
+        "hostname": "gpu-a100",
+        "user": "user"
+    },
+    {
+        "name": "V100",
+        "hostname": "gpu-v100",
+        "user": "user"
+    }
+]
