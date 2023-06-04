@@ -1,11 +1,16 @@
 import subprocess, json, os
 
+def is_line_in_file(file, pattern):
+    with open(file, "r") as f:
+        return any(pattern in x for x in f)
+
 print("Configurations loaded")
 
 commands:list = []
 
 shell = os.environ["SHELL"]
-rc = "~/"
+user = os.environ["USER"]
+rc = f"/home/{user}/"
 rc += ".bashrc" if ("bash" in shell) else ".zshrc"
 
 base_apt = " apt-get"
@@ -39,27 +44,9 @@ with open("packages.json", "r") as package_json:
         print(f"\tQueued Package: {p['name']} ({p['package']}, {p['manager']})")
         print(f"\t\t{c}")
 
-with open("configurations.json", "r") as configurations_json:
-    for config in json.load(configurations_json):
-        c = ""
-        if config["type"] == "command":
-            c = config["command"]
-        if config["type"] == "alias":
-            c = alias_template.format(config["alias"], config["alias_command"])
-        if config["type"] == "append":
-            dest = rc if config["destination"] == "rc" else config["destination"]
-            c = append_template.format(dest, config["line"], dest)
-        commands.append(c)
-        print(f"\tQueued Command: {c}")
-
-with open("ssh.json", "r") as ssh_json:
-    for ssh in json.load(ssh_json):
-        dest = "/home/s/.ssh/config"
-        config = f"Host {ssh['name']}\n\tHostName {ssh['hostname']}\n\tUser {ssh['user']}"
-        if "port" in ssh:
-            config += f"\tPort {json['port']}"
-        c = append_template.format(dest, config, dest)
-        commands.append(c)
+with open("commands.json", "r") as commands_json:
+    for config in json.load(commands_json):
+        commands.append(config["command"])
         print(f"\tQueued Command: {c}")
 
 for c in commands:
@@ -68,3 +55,32 @@ for c in commands:
     (output, err) = process.communicate()
     status = process.wait()
     print(f"o: {str(output, 'utf-8')}")
+
+with open("file_additions.json", "r") as file_additions_json:
+    for addition in json.load(file_additions_json):
+        dest = addition["dest"]
+        if addition["dest"] == "#rc":
+            dest = rc
+        if is_line_in_file(dest, addition["text"]):
+            continue
+        with open(dest, "a") as file:
+            file.write("\n")
+            file.write(addition["text"] + '\n')
+        print(f"\tFile Addition: {addition['name']}")
+
+with open("ssh.json", "r") as ssh_json:
+    for ssh in json.load(ssh_json):
+        dest = f"/home/{user}/.ssh/config"
+        port = 22
+        s = f"""
+        Host {ssh["name"]}
+        \tHostName {ssh["hostname"]}
+        \tUser {ssh["user"]}
+        \tPort {ssh["port"] if "port" in ssh else port}
+        """
+        if is_line_in_file(dest, f"Host {ssh['name']}"):
+            continue
+        with open(dest, "a") as file:
+            file.write("\n")
+            file.write(s + "\n")
+        print(f"\tSSH Config Addition: {ssh['name']}")

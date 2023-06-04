@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Add l alias",
+        "text": "alias l='ls -lah'",
+        "dest": "#rc"
+    },
+    {
+        "name": "Add .. alias",
+        "text": "alias ..='cd ..'",
+        "dest": "#rc"
+    },
+    {
+        "name": "Add c alias",
+        "text": "alias c='cd'",
+        "dest": "#rc"
+    },
+    {
+        "name": "Add venv source",
+        "text": "source ~/venv/bin/activate",
+        "dest": "#rc"
+    }
+]

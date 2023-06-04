@@ -1,0 +1,14 @@
+[
+    {
+        "type": "command",
+        "command": "echo Hello World!"
+    },
+    {
+        "type": "command",
+        "command": "curl -fsSL https://tailscale.com/install.sh | sh"
+    },
+    {
+        "type": "command",
+        "command": "python3 -m venv /home/s/venv"
+    }
+]
