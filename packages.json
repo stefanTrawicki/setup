@@ -60,6 +60,11 @@
         "package": "curl"
     },
     {
+        "name": "vim",
+        "manager": "apt",
+        "package": "vim"
+    },
+    {
         "name": "vscode",
         "manager": "snap",
         "package": "code",
@@ -89,5 +94,10 @@
         "name": "todoist",
         "manager": "snap",
         "package": "todoist"
+    },
+    {
+        "name": "Postman",
+        "manager": "snap",
+        "package": "postman"
     }
 ]

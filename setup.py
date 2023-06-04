@@ -4,7 +4,12 @@ def is_line_in_file(file, pattern):
     with open(file, "r") as f:
         return any(pattern in x for x in f)
 
-print("Configurations loaded")
+class Colours():
+    def __enter__(self):
+        print("\033[92m", end="")
+
+    def __exit__(self, exc_type, exc_value, exc_traceback):
+        print("\033[0m", end="")
 
 commands:list = []
 
