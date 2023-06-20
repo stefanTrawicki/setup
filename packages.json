@@ -1,103 +1,414 @@
 [
     {
-        "name": "gcc",
-        "manager": "apt",
-        "package": "gcc"
+        "name": "HomeBrew package manager",
+        "candidates": [
+            {
+                "manager": "macshell",
+                "contents": {
+                    "command": "/bin/bash -c '$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)'"
+                }
+            }
+        ]
     },
     {
-        "name": "make",
-        "manager": "apt",
-        "package": "make"
+        "name": "GCC Compiler",
+        "candidates": [
+            {
+                "manager": "apt",
+                "contents": {
+                    "package": "gcc"
+                }
+            },
+            {
+                "manager": "brew",
+                "contents": {
+                    "package": "gcc",
+                    "cask": false
+                }
+            }
+        ]
     },
     {
-        "name": "lightdm",
-        "manager": "apt",
-        "package": "lightdm"
+        "name": "Make Build System",
+        "candidates": [
+            {
+                "manager": "apt",
+                "contents": {
+                    "package": "make"
+                }
+            },
+            {
+                "manager": "brew",
+                "contents": {
+                    "package": "make"
+                }
+            }
+        ]
     },
     {
-        "name": "regolith",
-        "manager": "apt",
-        "package": "regolith-desktop-standard"
+        "name": "LightDM Desktop Manager",
+        "candidates": [
+            {
+                "manager": "apt",
+                "contents": {
+                    "package": "lightdm"
+                }
+            }
+        ]
     },
     {
-        "name": "yt-dlp",
-        "manager": "apt",
-        "package": "yt-dlp"
+        "name": "Regolith apt Repo",
+        "candidates": [
+            {
+                "manager": "apt-repo",
+                "contents": {
+                    "repo": "ppa:regolith-linux/release"
+                }
+            }
+        ]
     },
     {
-        "name": "docker runtime",
-        "manager": "apt",
-        "package": "docker.io"
+        "name": "Regolith Desktop Manager",
+        "candidates": [
+            {
+                "manager": "apt",
+                "contents": {
+                    "package": "regolith-desktop-standard"
+                }
+            }
+        ]
     },
     {
-        "name": "docker compose",
-        "manager": "apt",
-        "package": "docker-compose"
+        "name": "yt-dlp Video Downloader",
+        "candidates": [
+            {
+                "manager": "apt",
+                "contents": {
+                    "package": "yt-dlp"
+                }
+            },
+            {
+                "manager": "brew",
+                "contents": {
+                    "package": "yt-dlp"
+                }
+            }
+        ]
     },
     {
-        "name": "python3",
-        "manager": "apt",
-        "package": "python3"
+        "name": "Docker Runtime",
+        "candidates": [
+            {
+                "manager": "apt",
+                "contents": {
+                    "package": "docker.io"
+                }
+            },
+            {
+                "manager": "brew",
+                "contents": {
+                    "package": "docker",
+                    "cask": true
+                }
+            }
+        ]
     },
     {
-        "name": "pip3",
-        "manager": "apt",
-        "package": "python3-pip"
+        "name": "Docker Compose",
+        "candidates": [
+            {
+                "manager": "apt",
+                "contents": {
+                    "package": "docker-compose"
+                }
+            },
+            {
+                "manager": "brew",
+                "contents": {
+                    "package": "docker-compose"
+                }
+            }
+        ]
     },
     {
-        "name": "venv",
-        "manager": "apt",
-        "package": "python3.8-venv"
+        "name": "Python 3",
+        "candidates": [
+            {
+                "manager": "apt",
+                "contents": {
+                    "package": "python3"
+                }
+            },
+            {
+                "manager": "brew",
+                "contents": {
+                    "package": "python3.11"
+                }
+            }
+        ]
     },
     {
-        "name": "neofetch",
-        "manager": "apt",
-        "package": "neofetch"
+        "name": "Pip Package Manager",
+        "candidates": [
+            {
+                "manager": "apt",
+                "contents": {
+                    "package": "python3-pip"
+                }
+            }
+        ]
     },
     {
-        "name": "curl",
-        "manager": "apt",
-        "package": "curl"
+        "name": "Python Virtual Environment",
+        "candidates": [
+            {
+                "manager": "apt",
+                "contents": {
+                    "package": "python3.8-venv"
+                }
+            },
+            {
+                "manager": "brew",
+                "contents": {
+                    "package": "virtualenv"
+                }
+            }
+        ]
     },
     {
-        "name": "vim",
-        "manager": "apt",
-        "package": "vim"
+        "name": "Neofetch System Summary",
+        "candidates": [
+            {
+                "manager": "apt",
+                "contents": {
+                    "package": "neofetch"
+                }
+            },
+            {
+                "manager": "brew",
+                "contents": {
+                    "package": "neofetch"
+                }
+            }
+        ]
     },
     {
-        "name": "vscode",
-        "manager": "snap",
-        "package": "code",
-        "extra": "--classic"
+        "name": "Curl",
+        "candidates": [
+            {
+                "manager": "apt",
+                "contents": {
+                    "package": "curl"
+                }
+            }
+        ]
     },
     {
-        "name": "brave",
-        "manager": "snap",
-        "package": "brave"
+        "name": "Vim Editor",
+        "candidates": [
+            {
+                "manager": "apt",
+                "contents": {
+                    "package": "vim"
+                }
+            },
+            {
+                "manager": "brew",
+                "contents": {
+                    "package": "vim"
+                }
+            }
+        ]
     },
     {
-        "name": "spotify",
-        "manager": "snap",
-        "package": "spotify"
+        "name": "Microsoft VS Code",
+        "candidates": [
+            {
+                "manager": "snap",
+                "contents": {
+                    "package": "code",
+                    "flag": "--classic"
+                }
+            },
+            {
+                "manager": "brew",
+                "contents": {
+                    "package": "visual-studio-code",
+                    "cask": true
+                }
+            }
+        ]
     },
     {
-        "name": "discord",
-        "manager": "snap",
-        "package": "discord"
+        "name": "Brave Browser",
+        "candidates": [
+            {
+                "manager": "apt",
+                "contents": {
+                    "package": "brave"
+                }
+            },
+            {
+                "manager": "brew",
+                "contents": {
+                    "package": "brave-browser",
+                    "cask": true
+                }
+            }
+        ]
     },
     {
-        "name": "bitwarden",
-        "manager": "snap",
-        "package": "bitwarden"
+        "name": "Spotify Music Player",
+        "candidates": [
+            {
+                "manager": "snap",
+                "contents": {
+                    "package": "spotify"
+                }
+            },
+            {
+                "manager": "brew",
+                "contents": {
+                    "package": "spotify",
+                    "cask": true
+                }
+            }
+        ]
     },
     {
-        "name": "todoist",
-        "manager": "snap",
-        "package": "todoist"
+        "name": "Discord Chat",
+        "candidates": [
+            {
+                "manager": "apt",
+                "contents": {
+                    "package": "discord"
+                }
+            },
+            {
+                "manager": "brew",
+                "contents": {
+                    "package": "discord",
+                    "cask": true
+                }
+            }
+        ]
     },
     {
-        "name": "Postman",
-        "manager": "snap",
-        "package": "postman"
+        "name": "Bitwarden Password Manager",
+        "candidates": [
+            {
+                "manager": "apt",
+                "contents": {
+                    "package": "bitwarden"
+                }
+            },
+            {
+                "manager": "brew",
+                "contents": {
+                    "package": "bitwarden",
+                    "cask": true
+                }
+            }
+        ]
+    },
+    {
+        "name": "Todoist",
+        "candidates": [
+            {
+                "manager": "apt",
+                "contents": {
+                    "package": "todoist"
+                }
+            },
+            {
+                "manager": "brew",
+                "contents": {
+                    "package": "todoist",
+                    "cask": true
+                }
+            }
+        ]
+    },
+    {
+        "name": "Postman API Toolkit",
+        "candidates": [
+            {
+                "manager": "apt",
+                "contents": {
+                    "package": "postman"
+                }
+            },
+            {
+                "manager": "brew",
+                "contents": {
+                    "package": "postman",
+                    "cask": true
+                }
+            }
+        ]
+    },
+    {
+        "name": "RayCast OS Management Tool",
+        "candidates": [
+            {
+                "manager": "brew",
+                "contents": {
+                    "package": "raycast",
+                    "cask": true
+                }
+            }
+        ]
+    },
+    {
+        "name": "TailScale VPN",
+        "candidates": [
+            {
+                "manager": "brew",
+                "contents": {
+                    "package": "tailscale"
+                }
+            },
+            {
+                "manager": "brew",
+                "contents": {
+                    "package": "tailscale",
+                    "cask": true
+                }
+            },
+            {
+                "manager": "linuxshell",
+                "contents": {
+                    "command": "curl -fsSL https://tailscale.com/install.sh | sh"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Create python venv",
+        "candidates": [
+            {
+                "manager": "linuxshell",
+                "contents": {
+                    "command": "python3 -m venv #home/venv"
+                }
+            },
+            {
+                "manager": "macshell",
+                "contents": {
+                    "command": "python3 -m venv #home/venv"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Set docker groups",
+        "candidates": [
+            {
+                "manager": "linuxshell",
+                "contents": {
+                    "command": "sudo groupadd docker && sudo usermod -aG docker s"
+                }
+            }
+        ]
     }
 ]

@@ -1,7 +1,0 @@
-[
-    {
-        "name": "regolith",
-        "manager": "apt",
-        "repo": "ppa:regolith-linux/release"
-    }
-]

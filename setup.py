@@ -1,91 +1,69 @@
-import subprocess, json, os
+import subprocess, json, os, sys
 
-def is_line_in_file(file, pattern):
-    with open(file, "r") as f:
-        return any(pattern in x for x in f)
-
-class Colours():
-    def __enter__(self):
-        print("\033[92m", end="")
-
-    def __exit__(self, exc_type, exc_value, exc_traceback):
-        print("\033[0m", end="")
-
-commands:list = []
-
-shell = os.environ["SHELL"]
-user = os.environ["USER"]
-rc = f"/home/{user}/"
-rc += ".bashrc" if ("bash" in shell) else ".zshrc"
-
-base_apt = " apt-get"
-base_snap = " snap"
-base_apt_repository = " add-apt-repository"
-update = base_apt + " update"
-upgrade = base_apt + " upgrade"
-snap_install_template = base_snap + " install {}"
-apt_install_template = base_apt + " install {} -y"
-apt_repo_template = base_apt_repository + " {} -y"
-append_template = "echo >> {}" + """{} | tee -a {}"""
-alias_template = append_template.format(rc, "alias {}='{}'", rc)
-
-sudo_command = "sudo"
-
-with open("repos.json", "r") as repos_json:
-    for r in json.load(repos_json):
-        c = sudo_command + apt_repo_template.format(r["repo"])
-        commands.append(c)
-        print(f"\tQueued Repo: {r['name']} ({r['repo']})")
-        print(f"\t\t{c}")
-
-with open("packages.json", "r") as package_json:
-    for p in json.load(package_json):
-        c = ""
-        if p["manager"] == "apt":
-            c = sudo_command + apt_install_template.format(p["package"])
+class Runnable():
+    def run(self, dry_run=False):
+        if dry_run:
+            print(self.command)
         else:
-            c = sudo_command + snap_install_template.format(p["package"])
-        commands.append(c)
-        print(f"\tQueued Package: {p['name']} ({p['package']}, {p['manager']})")
-        print(f"\t\t{c}")
+            process = subprocess.Popen(self.command, stdout=subprocess.PIPE, shell=True)
+            (output, err) = process.communicate()
+            status = process.wait()
+            print(f"o: {str(output, 'utf-8')}")
 
-with open("commands.json", "r") as commands_json:
-    for config in json.load(commands_json):
-        commands.append(config["command"])
-        print(f"\tQueued Command: {c}")
+class BrewPackage(Runnable):
+    def __init__(self, package:str, cask:bool=False):
+        self.manager:str = "brew"
+        self.command:str = f"brew install {package} {'--cask' if cask else ''}"
 
-for c in commands:
-    print(f"Command: {c}")
-    process = subprocess.Popen(c, stdout=subprocess.PIPE, shell=True)
-    (output, err) = process.communicate()
-    status = process.wait()
-    print(f"o: {str(output, 'utf-8')}")
+class AptPackage(Runnable):
+    def __init__(self, package:str):
+        self.manager:str = "apt"
+        self.command:str = f"sudo apt-get install {package}"
 
-with open("file_additions.json", "r") as file_additions_json:
-    for addition in json.load(file_additions_json):
-        dest = addition["dest"]
-        if addition["dest"] == "#rc":
-            dest = rc
-        if is_line_in_file(dest, addition["text"]):
-            continue
-        with open(dest, "a") as file:
-            file.write("\n")
-            file.write(addition["text"] + '\n')
-        print(f"\tFile Addition: {addition['name']}")
+class SnapPackage(Runnable):
+    def __init__(self, package:str, flag:str):
+        self.manager:str = "snap"
+        self.command:str = f"sudo snap install {package} {flag}"
+    
+class AptRepo(Runnable):
+    def __init__(self, repo:str):
+        self.manager:str = "apt"
+        self.command:str = f"sudo add-apt-repository {repo} -y"
 
-with open("ssh.json", "r") as ssh_json:
-    for ssh in json.load(ssh_json):
-        dest = f"/home/{user}/.ssh/config"
-        port = 22
-        s = f"""
-        Host {ssh["name"]}
-        \tHostName {ssh["hostname"]}
-        \tUser {ssh["user"]}
-        \tPort {ssh["port"] if "port" in ssh else port}
-        """
-        if is_line_in_file(dest, f"Host {ssh['name']}"):
-            continue
-        with open(dest, "a") as file:
-            file.write("\n")
-            file.write(s + "\n")
-        print(f"\tSSH Config Addition: {ssh['name']}")
+class MacShellCommand(Runnable):
+    def __init__(self, command:str):
+        self.manager:str = "macshell"
+        self.command:str = command
+
+    def run(self, dry_run=False):
+        if "#home" in self.command:
+            self.command = self.command.replace("#home", home)
+        Runnable.run(self, dry_run)
+
+class LinuxShellCommand(MacShellCommand):
+    def __init__(self, command:str):
+        self.manager:str = "shell"
+        self.command:str = command
+
+ref = {
+    "shell": LinuxShellCommand,
+    "macshell": MacShellCommand,
+    "brew": BrewPackage,
+    "apt": AptPackage,
+    "snap": SnapPackage,
+    "apt-repo": AptRepo
+}
+
+home = os.path.expanduser('~')
+operating_system = sys.platform
+valid_managers = ["brew", "macshell"] if "darwin" in operating_system else ["apt", "apt-repo", "snap"]
+runnables:list = []
+
+with open("packages.json") as packages:
+    for package in json.load(packages):
+        for candidate in package["candidates"]:
+            if candidate["manager"] in valid_managers:
+                runnables.append((package["name"], ref[candidate["manager"]](**candidate["contents"])))
+
+for name, runnable in runnables:
+    runnable.run(dry_run=True)
