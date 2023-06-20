@@ -66,4 +66,4 @@ with open("packages.json") as packages:
                 runnables.append((package["name"], ref[candidate["manager"]](**candidate["contents"])))
 
 for name, runnable in runnables:
-    runnable.run(dry_run=True)
+    runnable.run(dry_run=False)
