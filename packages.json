@@ -11,6 +11,34 @@
         ]
     },
     {
+        "name": "Git",
+        "candidates": [
+            {
+                "manager": "homebrew",
+                "contents": {
+                    "package": "git"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Hyper Terminal",
+        "candidates": [
+            {
+                "manager": "brew",
+                "contents": {
+                    "package": "hyper"
+                }
+            },
+            {
+                "manager": "snap",
+                "contents": {
+                    "package": "hyper"
+                }
+            }
+        ]
+    },
+    {
         "name": "GCC Compiler",
         "candidates": [
             {
@@ -246,13 +274,6 @@
                 "manager": "apt",
                 "contents": {
                     "package": "brave"
-                }
-            },
-            {
-                "manager": "brew",
-                "contents": {
-                    "package": "brave-browser",
-                    "cask": true
                 }
             }
         ]
