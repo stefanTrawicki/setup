@@ -1,14 +1,61 @@
 import subprocess, json, os, sys
 
+# {
+#         "name": "HomeBrew package manager",
+#         "candidates": [
+#             {
+#                 "manager": "macshell",
+#                 "contents": {
+#                     "command": "curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash"
+#                 }
+#             }
+#         ]
+#     },
+
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+class ColorPrint(object):
+    def __init__(self, col=bcolors.OKGREEN):
+        self.col = col
+
+    def __enter__(self):
+        print(self.col)
+
+    def __exit__(self, *args):
+        print(bcolors.ENDC)
+
+strip = lambda x : str('=' * x)
+default_strip_len = 16
+
 class Runnable():
     def run(self, dry_run=False):
         if dry_run:
             print(self.command)
         else:
-            process = subprocess.Popen(self.command, stdout=subprocess.PIPE, shell=True)
-            (output, err) = process.communicate()
-            status = process.wait()
-            print(f"o: {str(output, 'utf-8')}")
+            process = subprocess.run(self.command, capture_output=True, shell=True)
+            # (output, err) = process.communicate()
+            # status = process.wait()
+            # print(f"o: {str(output, 'utf-8')}")
+            clean = lambda x : str(x, 'utf-8').replace("\n", "\n\t")
+            o = clean(process.stdout)
+            e = clean(process.stderr)
+            with ColorPrint(bcolors.HEADER):
+                print(f"Command: {strip(default_strip_len)}\n\t{self.command}")
+            if len(o) > 0:
+                with ColorPrint(bcolors.OKGREEN):
+                    print(f"Output: {strip(default_strip_len)}\n\t{o}")
+            if len(e) > 0:
+                with ColorPrint(bcolors.WARNING):
+                    print(f"Warnings: {strip(default_strip_len)}\n\t{e}")
 
 class BrewPackage(Runnable):
     def __init__(self, package:str, cask:bool=False):

@@ -1,16 +1,5 @@
 [
     {
-        "name": "HomeBrew package manager",
-        "candidates": [
-            {
-                "manager": "macshell",
-                "contents": {
-                    "command": "curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash"
-                }
-            }
-        ]
-    },
-    {
         "name": "Git",
         "candidates": [
             {
@@ -25,15 +14,21 @@
         "name": "Hyper Terminal",
         "candidates": [
             {
-                "manager": "brew",
-                "contents": {
-                    "package": "hyper"
-                }
-            },
-            {
                 "manager": "snap",
                 "contents": {
                     "package": "hyper"
+                }
+            }
+        ]
+    },
+    {
+        "name": "iTerm2 Terminal",
+        "candidates": [
+            {
+                "manager": "brew",
+                "contents": {
+                    "package": "iterm2",
+                    "cask": true
                 }
             }
         ]
@@ -268,12 +263,19 @@
         ]
     },
     {
-        "name": "Brave Browser",
+        "name": "Waterfox Browser",
         "candidates": [
             {
                 "manager": "apt",
                 "contents": {
-                    "package": "brave"
+                    "package": "waterfox"
+                }
+            },
+            {
+                "manager": "brew",
+                "contents": {
+                    "package": "waterfox",
+                    "cask": true
                 }
             }
         ]
@@ -369,13 +371,35 @@
         ]
     },
     {
-        "name": "RayCast OS Management Tool",
+        "name": "SKHD HotKey Daemon",
         "candidates": [
             {
                 "manager": "brew",
                 "contents": {
-                    "package": "raycast",
-                    "cask": true
+                    "package": "koekeishiya/formulae/skhd"
+                }
+            },
+            {
+                "manager": "macshell",
+                "contents": {
+                    "command": "skhd --start-service"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Yabai Desktop Manager",
+        "candidates": [
+            {
+                "manager": "brew",
+                "contents": {
+                    "package": "koekeishiya/formulae/yabai"
+                }
+            },
+            {
+                "manager": "macshell",
+                "contents": {
+                    "command": "yabai --start-service"
                 }
             }
         ]
@@ -400,34 +424,6 @@
                 "manager": "linuxshell",
                 "contents": {
                     "command": "curl -fsSL https://tailscale.com/install.sh | sh"
-                }
-            }
-        ]
-    },
-    {
-        "name": "Create python venv",
-        "candidates": [
-            {
-                "manager": "linuxshell",
-                "contents": {
-                    "command": "python3 -m venv #home/venv"
-                }
-            },
-            {
-                "manager": "macshell",
-                "contents": {
-                    "command": "python3 -m venv #home/venv"
-                }
-            }
-        ]
-    },
-    {
-        "name": "Set docker groups",
-        "candidates": [
-            {
-                "manager": "linuxshell",
-                "contents": {
-                    "command": "sudo groupadd docker && sudo usermod -aG docker s"
                 }
             }
         ]
