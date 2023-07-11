@@ -1,0 +1,6 @@
+[submodule "deps/bashrc"]
+	path = deps/bashrc
+	url = git@github.com:stefanTrawicki/bashrc.git
+[submodule "deps/dotfiles"]
+	path = deps/dotfiles
+	url = git@github.com:stefanTrawicki/dot-files.git
