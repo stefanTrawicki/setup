@@ -1,17 +1,5 @@
 import subprocess, json, os, sys
 
-# {
-#         "name": "HomeBrew package manager",
-#         "candidates": [
-#             {
-#                 "manager": "macshell",
-#                 "contents": {
-#                     "command": "curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash"
-#                 }
-#             }
-#         ]
-#     },
-
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
